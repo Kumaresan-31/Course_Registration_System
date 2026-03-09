@@ -3,7 +3,7 @@
    Particles · Dashboard · Charts · Theme · Pagination · Export
    ============================================================ */
 
-const API_BASE = 'http://localhost:3000';
+const API_BASE = window.location.origin;
 const ROWS_PER_PAGE = 8;
 
 // =================== DOM ELEMENTS ===================

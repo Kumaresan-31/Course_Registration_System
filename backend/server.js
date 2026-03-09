@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 require('dotenv').config();
 
 const studentRoutes = require('./routes/studentRoutes');
@@ -18,9 +19,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', studentRoutes);
 app.use('/', courseRoutes);
 
+// Serve Frontend
+app.use(express.static(path.join(__dirname, '../frontend')));
+
 // Health check
-app.get('/', (req, res) => {
+app.get('/api/health', (req, res) => {
     res.json({ message: 'Course Registration System API is running' });
+});
+
+// Fallback to index.html for frontend routing
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
 // Start server
